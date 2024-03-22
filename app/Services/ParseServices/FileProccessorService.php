@@ -9,12 +9,12 @@ class FileProccessorService
 {
     private $parser;
 
-    public function __construct(FileParseContract $parser) //
+    public function __construct( FileParseContract $parser) //
     {
         $this->parser = $parser;
     }
 
-    public function processFile(string $filePath = null)
+    public function process(string $filePath = null)
     {
         $filePath = ($filePath) ?:  env('FILE_SRC');
         $ext = pathinfo($filePath, PATHINFO_EXTENSION);
@@ -27,8 +27,7 @@ class FileProccessorService
         // }
         //dd($filePath);
         $data = $this->parser->parse($filePath);
-        
-        //// Логика для сохранения данных в базу данных
+
         return $data;
     }
 }

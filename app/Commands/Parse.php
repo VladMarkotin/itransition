@@ -5,6 +5,7 @@ namespace App\Commands;
 use Illuminate\Console\Scheduling\Schedule;
 use LaravelZero\Framework\Commands\Command;
 use App\Services\ParseServices\FileProccessorService;
+use App\Services\ExportServices\ExportToDbService;
 
 
 class Parse extends Command
@@ -26,11 +27,14 @@ class Parse extends Command
     protected $args = [];
 
     protected $fProcService = null;
+    protected $dbService = null;
 
-    public function __construct(FileProccessorService $fProcService)
+    public function __construct(FileProccessorService $fProcService,
+                                ExportToDbService $dbService)
     {
         parent::__construct();
         $this->fProcService = $fProcService;
+        $this->dbService = $dbService;
     }
 
     /**
@@ -42,9 +46,15 @@ class Parse extends Command
     {
         $this->args['file'] = $this->argument('file');
         $this->args['mode'] = $this->argument('mode');
-        $this->info('This command will start parsing process');
-        $str = $this->fProcService->processFile($this->args['file']);
-        $this->info($str);
+        //Начинаем парсить данные из файла
+        $this->info('Start importing process');
+        $data = $this->fProcService->process($this->args['file']);
+        $this->info('Parsing from CSV file is completed');
+        // Логика для сохранения данных в базу данных
+        $this->info('Start export data to database..');
+        $this->dbService->insertIntoDb($data);
+        $this->info('Export to database is completed');
+
     }
 
     /**

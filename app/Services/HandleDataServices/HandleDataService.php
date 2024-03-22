@@ -2,50 +2,57 @@
 namespace App\Services\HandleDataServices;
 
 
+use League\Csv\Reader;
+use League\Csv\Statement;
+use Carbon\Carbon;
+
 class HandleDataService
 {
-    public function handle($record)
+    protected $fieldsInDb = [
+        'strProductCode',
+        'strProductName',
+        'strProductDesc',
+        'price',
+        'stock_level',
+        'dtmDiscontinued'
+    ];
+    protected $formatter = [];
+
+    public function __construct()
     {
-        $filters = $this->defineFilters();
-        foreach ($filters as $f) {
-            $recordLength = count($record);
-            $record = array_filter($record, $f, ARRAY_FILTER_USE_BOTH);
-            if (count($record) != $recordLength) {
-                return ;
+        $this->formatter['Discontinued'] = (function ($row) {
+            if ($row['Discontinued'] == 'yes') {
+                $row['Discontinued'] = (Carbon::now()->toDateTimeString());//->format('Y-m-d')
+            } else {
+                $row['Discontinued'] = null;
             }
-        }
-        
-        return $record;
+
+            return $row;
+        });
     }
 
-    private function defineFilters()
+    public function getConstraints() //$record
     {
-        $filters = [
-            //Any stock item which costs less that $5 and has less than 10 stock will not be imported
-            'Cost in GBP' => (function ($el, $ind) {
-                if ($ind == 'Cost in GBP') {
-                    if (floatval($el) > 5) {
-                        return $el;
-                    }
-                    //dd($el);
-                    return ;
-                }
-                
-                return $el;
-            }),
-            //and has less than 10 stock will not be imported
-            'Stock' => (function ($el, $ind) {
-                if ($ind == 'Stock') {
-                    if (floatval($el) > 10) {
-                        return $el;
-                    }
-                    return ;
-                }
-                
-                return $el;
-            }),
-        ];
+        $constraints = Statement::create()
+            ->select('Product Code', 'Product Name', 'Product Description','Cost in GBP', 'Stock', 'Discontinued')
+            ->where(fn (array $record) => ( (float) $record['Cost in GBP'] > 5 && (float) $record['Cost in GBP'] < 1000))
+            ->where(fn (array $record) => (int) $record['Stock'] >= 10);
+            
+        return $constraints;
+    }
 
-        return $filters;
+    public function getFormatter($index = null)
+    {
+        return ($index) ? $this->formatter[$index]: $this->formatter;
+    }
+
+    public function handle(array $record)
+    {
+        return $this->prepareHeadersForExportInDb($record);
+    }
+    
+    private function prepareHeadersForExportInDb($record)
+    {   
+        return array_combine($this->fieldsInDb, $record);
     }
 }

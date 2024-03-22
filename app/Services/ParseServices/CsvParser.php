@@ -18,24 +18,22 @@ class CsvParser implements FileParseContract
         $this->handleDataService = $handleDataService;
     }
 
-    public function parse(string $filePath): string
+    public function parse(string $filePath): array
     {
-        $fileContent = file_get_contents($filePath);
-        $csv = Reader::createFromString($fileContent);
-        $csv->setDelimiter(',');
-        $csv->setHeaderOffset(0);
-        $stmt = Statement::create();//->limit(25);
-    
-        //query your records from the document
-        $records = $stmt->process($csv);
-    //    dd($records);
-        foreach ($records as $record) {
-            if ( $this->handleDataService->handle($record)) {
-                $this->csvData[] = $record;
-            }
-        }
+        $formatters = $this->handleDataService->getFormatter();
+        $csv = Reader::createFromPath($filePath)
+          ->setDelimiter(',')
+          ->setHeaderOffset(0)
+          ->addFormatter($formatters['Discontinued']);
 
-        dd($this->csvData);
-        return  $csv->toString();
+        $constraints = $this->handleDataService->getConstraints();
+        $filteredData = $constraints->process($csv);
+        $records = $filteredData->getRecords();
+        foreach ($records as $record) {
+            $this->csvData[] = $this->handleDataService->handle($record);
+        }
+        //dd( $this->csvData);
+
+        return $this->csvData;
     }
 }
