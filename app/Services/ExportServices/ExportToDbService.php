@@ -12,7 +12,6 @@ class ExportToDbService
     {
         $chunkSize = 500; // Размер пакета (сколько записей в одном запросе)
         $chunks = array_chunk($data, $chunkSize);
-        //dd($chunks);
 
         foreach ($chunks as $chunk) {
             DB::table($this->table)->insert(

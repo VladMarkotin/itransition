@@ -16,43 +16,62 @@ class HandleDataService
         'stock_level',
         'dtmDiscontinued'
     ];
-    protected $formatter = [];
+
+    protected $formatters = [];
 
     public function __construct()
     {
-        $this->formatter['Discontinued'] = (function ($row) {
-            if ($row['Discontinued'] == 'yes') {
-                $row['Discontinued'] = (Carbon::now()->toDateTimeString());//->format('Y-m-d')
-            } else {
-                $row['Discontinued'] = null;
-            }
-
-            return $row;
-        });
+        $this->prepareFormatters();
     }
 
-    public function getConstraints() //$record
+    public function getConstraints()
     {
         $constraints = Statement::create()
             ->select('Product Code', 'Product Name', 'Product Description','Cost in GBP', 'Stock', 'Discontinued')
-            ->where(fn (array $record) => ( (float) $record['Cost in GBP'] > 5 && (float) $record['Cost in GBP'] < 1000))
-            ->where(fn (array $record) => (int) $record['Stock'] >= 10);
+                ->where(function (array $record) {
+                    if ((float) $record['Cost in GBP'] > 5) {
+                        return true;
+                    }
+                }) 
+                ->where(function (array $record) {
+                    if ((float) $record['Cost in GBP'] < 1000) {
+                        return true;
+                    }
+                })
+                ->where(function (array $record) {
+                    if ((float) $record['Stock'] >= 10) {
+                        return true;
+                    }
+                });
             
         return $constraints;
     }
 
     public function getFormatter($index = null)
     {
-        return ($index) ? $this->formatter[$index]: $this->formatter;
+        return ($index) ? $this->formatters[$index]: $this->formatters;
     }
 
-    public function handle(array $record)
+    public function handle(array $record) :array
     {
         return $this->prepareHeadersForExportInDb($record);
     }
     
-    private function prepareHeadersForExportInDb($record)
+    private function prepareHeadersForExportInDb($record) :array
     {   
         return array_combine($this->fieldsInDb, $record);
+    }
+
+    private function prepareFormatters()
+    {
+        $this->formatters['Discontinued'] = (function ($row) {
+            if ($row['Discontinued'] == 'yes') {
+                $row['Discontinued'] = (Carbon::now()->toDateTimeString());
+            } else {
+                $row['Discontinued'] = null;
+            }
+
+            return $row;
+        });
     }
 }

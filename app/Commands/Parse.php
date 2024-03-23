@@ -6,7 +6,7 @@ use Illuminate\Console\Scheduling\Schedule;
 use LaravelZero\Framework\Commands\Command;
 use App\Services\ParseServices\FileProccessorService;
 use App\Services\ExportServices\ExportToDbService;
-
+use App\Services\ReportServices\ReportService;
 
 class Parse extends Command
 {
@@ -15,7 +15,7 @@ class Parse extends Command
      *
      * @var string
      */
-    protected $signature = 'app:parse {file?} {mode?}';
+    protected $signature = 'app:parse {mode?}';
 
     /**
      * The description of the command.
@@ -44,16 +44,22 @@ class Parse extends Command
      */
     public function handle()
     {
-        $this->args['file'] = $this->argument('file');
         $this->args['mode'] = $this->argument('mode');
         //Начинаем парсить данные из файла
         $this->info('Start importing process');
-        $data = $this->fProcService->process($this->args['file']);
+        $data = $this->fProcService->process();
         $this->info('Parsing from CSV file is completed');
-        // Логика для сохранения данных в базу данных
-        $this->info('Start export data to database..');
-        $this->dbService->insertIntoDb($data);
-        $this->info('Export to database is completed');
+        if (!$this->args['mode']) {
+            // Логика для сохранения данных в базу данных
+            $this->info('Start export data to database..');
+            $this->dbService->insertIntoDb($data);
+            $this->info('Export to database is completed');
+            $this->info('Export`s report: ');
+        } else {
+            $this->info('Test mode is on so we will just show you result array');
+        }
+        $this->info('-------------------------');
+        $this->info( ReportService::getReport() );
 
     }
 

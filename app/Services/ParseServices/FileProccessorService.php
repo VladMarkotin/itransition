@@ -2,7 +2,6 @@
 namespace App\Services\ParseServices;
 
 
-//use App\Services\ParseServices\CsvParser;
 use App\Services\ParseServices\Contracts\FileParseContract;
 
 class FileProccessorService
@@ -16,16 +15,8 @@ class FileProccessorService
 
     public function process(string $filePath = null)
     {
-        $filePath = ($filePath) ?:  env('FILE_SRC');
-        $ext = pathinfo($filePath, PATHINFO_EXTENSION);
-        //Логика определения необходимого апарсера
-        // $parser = null;
-        // switch ($ext) {
-        //     case 'csv': $this->parser = new CsvParser();
-        //         break;
-        //     default: $this->parser = new CsvParser();
-        // }
-        //dd($filePath);
+        $systemPath = __DIR__.env('STORAGE_SRC');
+        $filePath = ($filePath) ? $systemPath.$filePath:  env('FILE_SRC');
         $data = $this->parser->parse($filePath);
 
         return $data;

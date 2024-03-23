@@ -6,6 +6,7 @@ use \App\Services\ParseServices\Contracts\FileParseContract;
 use League\Csv\Reader;
 use League\Csv\Statement;
 use \App\Services\HandleDataServices\HandleDataService;
+use App\Services\ReportServices\ReportService;
 
 
 class CsvParser implements FileParseContract 
@@ -25,14 +26,15 @@ class CsvParser implements FileParseContract
           ->setDelimiter(',')
           ->setHeaderOffset(0)
           ->addFormatter($formatters['Discontinued']);
-
+        ReportService::setRecordsAmount($csv->count() );
         $constraints = $this->handleDataService->getConstraints();
         $filteredData = $constraints->process($csv);
         $records = $filteredData->getRecords();
+        ReportService::addToReport('success', $filteredData->count());
+        ReportService::addToReport('fail', ($csv->count() - $filteredData->count()) );
         foreach ($records as $record) {
             $this->csvData[] = $this->handleDataService->handle($record);
         }
-        //dd( $this->csvData);
 
         return $this->csvData;
     }
