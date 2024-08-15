@@ -34,8 +34,8 @@ class Parse extends Command
 
     protected $args = [];
 
-    protected $fProcService = null;
-    protected $dbService = null;
+    protected FileProccessorService $fProcService;
+    protected ExportToDbService $dbService;
 
     public function __construct(FileProccessorService $fProcService,
                                 ExportToDbService $dbService)
@@ -54,11 +54,13 @@ class Parse extends Command
     {
         $this->args['mode'] = $this->option('m');
         $this->args['path'] = $this->option('f');
+
         //start parsing
         $this->info('Start importing process');
         $systemPath = __DIR__.env('STORAGE_SRC');
-        $path = ($this->args['path']) ? $systemPath.$this->args['path']
-                : $systemPath.env('FILE_SRC');
+        $path = ($this->args['path']) ?
+            $systemPath.$this->args['path']
+            : $systemPath.env('FILE_SRC');
 
         $data = $this->fProcService->process($path);
         $this->info('Parsing from CSV file is completed');
@@ -72,6 +74,7 @@ class Parse extends Command
         } else {
             $this->info('Test mode is on so we will just show you parsing` info');
         }
+
         $this->info('-------------------------');
         $this->info( ReportService::getReport() );
         $this->info('-------------------------');

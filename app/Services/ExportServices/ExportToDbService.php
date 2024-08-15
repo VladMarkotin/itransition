@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace App\Services\ExportServices;
 
-use DB;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\DB;
 
 class ExportToDbService
 {
@@ -16,9 +17,13 @@ class ExportToDbService
         $chunks = array_chunk($data, $chunkSize);
 
         foreach ($chunks as $chunk) {
-            DB::table($this->table)->insert(
-                $chunk
-            );
+            try {
+                DB::table($this->table)->insert(
+                    $chunk
+                );
+            } catch (QueryException $e) {
+                dd("Error during exporting to database. Message:", $e->errorInfo);
+            }
         }
     }
 }
