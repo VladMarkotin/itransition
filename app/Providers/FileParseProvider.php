@@ -1,6 +1,8 @@
 <?php
-namespace App\Providers;
 
+declare(strict_types=1);
+
+namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Services\ParseServices\Contracts\FileParseContract;
@@ -9,21 +11,25 @@ use App\Services\HandleDataServices\HandleDataService;
 
 class FileParseProvider extends ServiceProvider
 {
-    public function register()
+    public function register(): FileParseContract
     {
-        //Определяем, какой пасер будет работать с нашим файлом (иначе говоря, реализуем FileParseContract)
         $this->app->bind(FileParseContract::class, function ($app) {
             $filePath = __DIR__.env('STORAGE_SRC').env('FILE_SRC');
             $ext = pathinfo($filePath, PATHINFO_EXTENSION);
-            //Логика определения необходимого паарсера на основе расширения файла
+
+            //define parser base on file extension
             switch ($ext) {
                 case 'csv':  return new CsvParser( new HandleDataService);
-                case 'xml': //здесь может быть, например, XMLParser
-                    dd('I`ll be rady to parse xml file as soon as you provide me with XMLParser :)');
+                case 'xml': //for instance, here could be XMLParser
+                    dd('I`ll be ready to parse xml file as soon as you provide me with XMLParser :)');
                     break;
                 //..
                 default: dd('We currently can`t work with such files :(');
             }
+
+            return new CsvParser( new HandleDataService);
         });
+
+        return new CsvParser( new HandleDataService);
     }
 }

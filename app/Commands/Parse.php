@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Commands;
 
 use Illuminate\Console\Scheduling\Schedule;
@@ -15,14 +17,20 @@ class Parse extends Command
      *
      * @var string
      */
-    protected $signature = "app:parse {-m=prod}";
+    protected $signature = 'app:parse {--m=prod} {--f=}';
+
 
     /**
      * The description of the command.
      *
      * @var string
      */
-    protected $description = 'This command will start csv file parsing proccess';
+    protected $description = 'This command will start csv file parsing process. You can
+     specify 2 arguments:
+      "--m" for parsing mode
+       "--f" for setting file name for parsing
+       Both parameters are optional. By default  --m set as production and --f set
+        as mentioned in .env file. Files for parsing must placed in /storage directory';
 
     protected $args = [];
 
@@ -44,13 +52,19 @@ class Parse extends Command
      */
     public function handle()
     {
-        $this->args['mode'] = $this->argument('-m');
-        //Начинаем парсить данные из файла
+        $this->args['mode'] = $this->option('m');
+        $this->args['path'] = $this->option('f');
+        //start parsing
         $this->info('Start importing process');
-        $data = $this->fProcService->process();
+        $systemPath = __DIR__.env('STORAGE_SRC');
+        $path = ($this->args['path']) ? $systemPath.$this->args['path']
+                : $systemPath.env('FILE_SRC');
+
+        $data = $this->fProcService->process($path);
         $this->info('Parsing from CSV file is completed');
+
         if ($this->args['mode'] == 'prod') {
-            // Логика для сохранения данных в базу данных
+            // saving data to db
             $this->info('Start export data to database..');
             $this->dbService->insertIntoDb($data);
             $this->info('Export to database is completed');

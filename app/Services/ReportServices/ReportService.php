@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace App\Services\ReportServices;
 
 
@@ -50,5 +53,5 @@ class ReportService
         Log::info(json_encode( self::$failedRecords, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE ) );
 
         return 'Failed lines you can find in: '.storage_path().DIRECTORY_SEPARATOR .'logs'.DIRECTORY_SEPARATOR .'laravel.log';
-    } 
+    }
 }

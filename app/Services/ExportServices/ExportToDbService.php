@@ -1,6 +1,8 @@
 <?php
-namespace App\Services\ExportServices;
 
+declare(strict_types=1);
+
+namespace App\Services\ExportServices;
 
 use DB;
 

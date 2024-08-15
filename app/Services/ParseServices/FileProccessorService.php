@@ -1,6 +1,8 @@
 <?php
-namespace App\Services\ParseServices;
 
+declare(strict_types=1);
+
+namespace App\Services\ParseServices;
 
 use App\Services\ParseServices\Contracts\FileParseContract;
 
@@ -20,15 +22,10 @@ class FileProccessorService
 
     public function process(string $filePath = null)
     {
-        $data = [];
-        //Путь к файлу задается в .env файле 
-        $systemPath = __DIR__.env('STORAGE_SRC');
-        $filePath = $systemPath.env('FILE_SRC');
         if (file_exists($filePath)) {
-            $data = $this->parser->parse($filePath);
-            
-            return $data;
+            return $this->parser->parse($filePath);
         }
+
         dd('File doesn`t exist :(');
 
     }

@@ -1,6 +1,8 @@
 <?php
-namespace App\Services\HandleDataServices;
 
+declare(strict_types=1);
+
+namespace App\Services\HandleDataServices;
 
 use League\Csv\Reader;
 use League\Csv\Statement;
@@ -9,7 +11,7 @@ use App\Services\ReportServices\ReportService;
 
 class HandleDataService
 {
-    //здесь названия столбцов в таблице в БД. Т.к названия столбцов в csv-файле и бд не совпадаю, то из этого массива мы получаем реальные названия для импорта в бд
+    //Db Column`s list.
     protected $fieldsInDb = [
         'strProductCode',
         'strProductName',
@@ -29,38 +31,43 @@ class HandleDataService
     public function getConstraints()
     {
         /**
-         * Здесь формирую проверки для данных в csv. Если они не соответсвтвуют условиям, то в базу они не добавятся
+         * Create rules for checking lines in csv-file data. If not valid,
+         * line would not be added to DB
          */
-        $constraints = Statement::create()
+        return ( Statement::create()
             ->select('Product Code', 'Product Name', 'Product Description','Cost in GBP', 'Stock', 'Discontinued')
                 ->where(function (array $record) {
-                    if ((float) $record['Cost in GBP'] > 5) {
-                        //все хорошо, эта запись нам подходит (по параметру Cost in GBP)
-                        return true;
-                    }
-                    //Добавляю провалившие проверки данные в список
-                    ReportService::storeFailedRecord($record);
 
-                    return false;
-                }) 
-                ->where(function (array $record) {
-                    if ((float) $record['Cost in GBP'] < 1000) {
+                    if ((float) $record['Cost in GBP'] > 5) {
                         return true;
                     }
+
+                    //add failed lines to report
                     ReportService::storeFailedRecord($record);
 
                     return false;
                 })
                 ->where(function (array $record) {
-                    if ((float) $record['Stock'] >= 10) {
+
+                    if ((float) $record['Cost in GBP'] < 1000) {
                         return true;
                     }
+
                     ReportService::storeFailedRecord($record);
 
                     return false;
-                });
-            
-        return $constraints;
+                })
+                ->where(function (array $record) {
+
+                    if ((float) $record['Stock'] >= 10) {
+                        return true;
+                    }
+
+                    ReportService::storeFailedRecord($record);
+
+                    return false;
+                })
+        );
     }
 
     public function getFormatter($index = null)
@@ -72,18 +79,19 @@ class HandleDataService
     {
         return $this->prepareHeadersForExportInDb($record);
     }
-    
+
     private function prepareHeadersForExportInDb($record) :array
-    {   
+    {
         return array_combine($this->fieldsInDb, $record);
     }
 
     private function prepareFormatters()
     {
         /**
-         * Форматируем данные для столбца Discontinued согласно условия
+         * format Discontinued-field
          */
         $this->formatters['Discontinued'] = (function ($row) {
+
             if ($row['Discontinued'] == 'yes') {
                 $row['Discontinued'] = (Carbon::now()->toDateTimeString());
             } else {
