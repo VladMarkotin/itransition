@@ -35,6 +35,7 @@ class Parse extends Command
     protected $args = [];
 
     protected FileProccessorService $fProcService;
+
     protected ExportToDbService $dbService;
 
     public function __construct(FileProccessorService $fProcService,
@@ -65,11 +66,11 @@ class Parse extends Command
         $data = $this->fProcService->process($path);
         $this->info('Parsing from CSV file is completed');
 
-        if ($this->args['mode'] == 'prod') {
+        if ($this->args['mode'] == env('APP_PRODUCTION_MODE')) {
             // saving data to db
             $this->info('Start export data to database..');
             $this->dbService->insertIntoDb($data);
-            $this->info('Export to database is completed');
+            $this->info('Export to database has been completed');
             $this->info('Export`s report: ');
         } else {
             $this->info('Test mode is on so we will just show you parsing` info');

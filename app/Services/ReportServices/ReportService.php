@@ -49,7 +49,6 @@ class ReportService
 
     public static function getFailedRecords() :string
     {
-        //Мне кажется что строки, которые не были добавлены в бд, лучше выводить в лог файл (т.к если csv-файл большой, то ошибок может быть много и выводить их в консоль неудобно)
         Log::info(json_encode( self::$failedRecords, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE ) );
 
         return 'Failed lines you can find in: '.storage_path().DIRECTORY_SEPARATOR .'logs'.DIRECTORY_SEPARATOR .'laravel.log';

@@ -16,10 +16,6 @@ class ValidationRules
         ]
     ];
 
-    private static array $appMode = [
-
-    ];
-
     public static function getRule($index, $rule): mixed
     {
         if (isset(self::$rules[$index][$rule]) ) {

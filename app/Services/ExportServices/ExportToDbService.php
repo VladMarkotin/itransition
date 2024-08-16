@@ -13,8 +13,8 @@ class ExportToDbService
 
     public function insertIntoDb(array $data)
     {
-        $chunkSize = 500; // Размер пакета (сколько записей в одном запросе)
-        $chunks = array_chunk($data, $chunkSize);
+        $chunkSize = env('DB_CHUNK_SIZE');
+        $chunks = array_chunk($data, (int)$chunkSize);
 
         foreach ($chunks as $chunk) {
             try {
