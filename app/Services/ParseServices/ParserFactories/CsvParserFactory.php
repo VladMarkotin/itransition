@@ -24,7 +24,6 @@ class CsvParserFactory implements Parser
 
     public function parse(string $data): void
     {
-        // Логика парсинга CSV файла
         echo "Parsing CSV data...";
     }
 }
