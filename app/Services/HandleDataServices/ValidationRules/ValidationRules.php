@@ -18,7 +18,7 @@ class ValidationRules
 
     public static function getRule($index, $rule): mixed
     {
-        if (isset(self::$rules[$index][$rule]) ) {
+        if (isset(self::$rules[$index][$rule])) {
             return self::$rules[$index][$rule];
         }
 

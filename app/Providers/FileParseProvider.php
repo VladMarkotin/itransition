@@ -13,7 +13,8 @@ use Symfony\Component\Console\Input\ArgvInput;
 class FileParseProvider extends ServiceProvider
 {
     public function register()
-    {}
+    {
+    }
 
     public function boot(): FileParseContract
     {
@@ -24,7 +25,7 @@ class FileParseProvider extends ServiceProvider
             if ($input->getParameterOption('--f')) {
                 $fileParameter = pathinfo($input->getParameterOption('--f'));
 
-                $ext = (isset($fileParameter['extension']) )
+                $ext = (isset($fileParameter['extension']))
                     ? pathinfo($input->getParameterOption('--f'))['extension']
                     : pathinfo($filePath, PATHINFO_EXTENSION);
             } else {
@@ -32,7 +33,7 @@ class FileParseProvider extends ServiceProvider
             }
 
             switch ($ext) {
-                case 'csv':  return new CsvParser( new HandleDataService);
+                case 'csv':  return new CsvParser(new HandleDataService());
                 case 'xml': //for instance, here could be XMLParser
                     dd('I`ll be ready to parse xml file as soon as you provide me with XMLParser :)');
                     break;
@@ -40,6 +41,6 @@ class FileParseProvider extends ServiceProvider
             }
         });
 
-        return new CsvParser( new HandleDataService);
+        return new CsvParser(new HandleDataService());
     }
 }

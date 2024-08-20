@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Services\ReportServices;
 
-
 use Illuminate\Support\Facades\Log;
 
 class ReportService
@@ -20,7 +19,7 @@ class ReportService
     /**
      * Здесь формирую отчет об импорте в базу
      */
-    public static function getReport() :string
+    public static function getReport(): string
     {
         $p = self::$summary['proccessed']." lines have been proccessed:\n";
         $s = "Successfuly handled: ".self::$summary['success'] ." lines\n";
@@ -42,14 +41,14 @@ class ReportService
 
     public static function storeFailedRecord($record)
     {
-        if (!in_array($record, self::$failedRecords) ) {
+        if (!in_array($record, self::$failedRecords)) {
             self::$failedRecords[] = $record;
         }
     }
 
-    public static function getFailedRecords() :string
+    public static function getFailedRecords(): string
     {
-        Log::info(json_encode( self::$failedRecords, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE ) );
+        Log::info(json_encode(self::$failedRecords, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
 
         return 'Failed lines you can find in: '.storage_path().DIRECTORY_SEPARATOR .'logs'.DIRECTORY_SEPARATOR .'laravel.log';
     }

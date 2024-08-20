@@ -9,7 +9,6 @@ use App\Services\ParseServices\ParserFactories\Parser;
 
 class CsvParserFactory implements Parser
 {
-
     private $handleDataService;
 
     public function createParser(): Parser

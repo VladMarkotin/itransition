@@ -87,7 +87,7 @@ class HandleDataService
 
     public function getFormatter($index = null)
     {
-        return ($index) ? $this->formatters[$index]: $this->formatters;
+        return ($index) ? $this->formatters[$index] : $this->formatters;
     }
 
     public function handle(array $record): array

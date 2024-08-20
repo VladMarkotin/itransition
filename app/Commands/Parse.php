@@ -38,9 +38,10 @@ class Parse extends Command
 
     protected ExportToDbService $dbService;
 
-    public function __construct(FileProccessorService $fProcService,
-                                ExportToDbService $dbService)
-    {
+    public function __construct(
+        FileProccessorService $fProcService,
+        ExportToDbService $dbService
+    ) {
         parent::__construct();
         $this->fProcService = $fProcService;
         $this->dbService = $dbService;
@@ -77,7 +78,7 @@ class Parse extends Command
         }
 
         $this->info('-------------------------');
-        $this->info( ReportService::getReport() );
+        $this->info(ReportService::getReport());
         $this->info('-------------------------');
         $this->info(ReportService::getFailedRecords());
 

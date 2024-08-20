@@ -1,6 +1,6 @@
 <?php
-namespace App\Services\ParseServices\Contracts;
 
+namespace App\Services\ParseServices\Contracts;
 
 interface FileParseContract
 {
