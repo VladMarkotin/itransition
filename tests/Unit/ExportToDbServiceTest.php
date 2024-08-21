@@ -2,41 +2,46 @@
 
 namespace Tests\Unit;
 
+use Illuminate\Support\Facades\Facade;
 use PHPUnit\Framework\TestCase;
 use App\Services\ExportServices\ExportToDbService;
+use Mockery;
+use Illuminate\Support\Facades\DB;
 
 class ExportToDbServiceTest extends TestCase
 {
-    /**
-     * A basic unit test example.
-     *
-     * @return void
-     */
-    public function test_example()
+    public function tearDown(): void
     {
-        $this->assertTrue(true);
+        Mockery::close();
     }
 
     public function testInsertDataIntoDb()
     {
-        $exportService = new ExportToDbService();
+        Facade::setFacadeApplication(app());
         putenv('DB_CHUNK_SIZE=2');
 
-        // Создание тестовых данных
         $correctData = [
             [
-                "strProductCode" => "P0002",
+                "strProductCode" => "P00022",
                 "strProductName" => "Cd Player",
                 "strProductDesc" => "Nice CD player",
                 "price" => "50.12",
                 "stock_level" => "11",
                 "dtmDiscontinued" => null,
-            ]
+            ],
         ];
 
-        DB::shouldReceive('table->insert')->times(2);
-        $exportService->insertIntoDb($correctData);
-        DB::assertNumberOfQueries(2);
+        $db = Mockery::mock('alias:'.DB::class);
+        $db->shouldReceive('table')->andReturnSelf();
+        $db->shouldReceive('insert')
+            ->once()
+            ->withArgs([$correctData])
+            ->andReturn(true);
+
+        $service = new ExportToDbService();
+        $result = $service->insertIntoDb($correctData);
+        $this->assertTrue($result);
+
     }
 
 }

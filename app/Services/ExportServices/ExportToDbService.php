@@ -6,12 +6,13 @@ namespace App\Services\ExportServices;
 
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Facade;
 
 class ExportToDbService
 {
     protected $table = 'tblproductdata';
 
-    public function insertIntoDb(array $data)
+    public function insertIntoDb(array $data): bool
     {
         $chunkSize = env('DB_CHUNK_SIZE');
         $chunks = array_chunk($data, (int)$chunkSize);
@@ -25,5 +26,7 @@ class ExportToDbService
                 dd("Error during exporting to database. Message:", $e->errorInfo);
             }
         }
+
+        return true;
     }
 }
