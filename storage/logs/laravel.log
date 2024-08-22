@@ -1312,3 +1312,225 @@
         "Discontinued": "2024-08-21 13:29:55"
     }
 ]  
+[2024-08-22 13:02:10] development.INFO: [
+    {
+        "Product Code": "P0004",
+        "Product Name": "Bluray Player",
+        "Product Description": "Watch it in HD",
+        "Stock": "1",
+        "Cost in GBP": "24.55",
+        "Discontinued": null
+    },
+    {
+        "Product Code": "P0005",
+        "Product Name": "XBOX360",
+        "Product Description": "Best.console.ever",
+        "Stock": "5",
+        "Cost in GBP": "30.44",
+        "Discontinued": null
+    },
+    {
+        "Product Code": "P0006",
+        "Product Name": "PS3",
+        "Product Description": "Mind your details",
+        "Stock": "3",
+        "Cost in GBP": "24.99",
+        "Discontinued": null
+    },
+    {
+        "Product Code": "P0007",
+        "Product Name": "24” Monitor",
+        "Product Description": "Awesome",
+        "Stock": "",
+        "Cost in GBP": "35.99",
+        "Discontinued": null
+    },
+    {
+        "Product Code": "P0009",
+        "Product Name": "Harddisk",
+        "Product Description": "Great for storing data",
+        "Stock": "0",
+        "Cost in GBP": "99.99",
+        "Discontinued": null
+    },
+    {
+        "Product Code": "P0010",
+        "Product Name": "CD Bundle",
+        "Product Description": "Lots of fun",
+        "Stock": "0",
+        "Cost in GBP": "10",
+        "Discontinued": null
+    },
+    {
+        "Product Code": "P0011",
+        "Product Name": "Misc Cables",
+        "Product Description": "error in export",
+        "Stock": null,
+        "Cost in GBP": null,
+        "Discontinued": null
+    },
+    {
+        "Product Code": "P0014",
+        "Product Name": "VCR",
+        "Product Description": "VHS rules",
+        "Stock": "3",
+        "Cost in GBP": "23",
+        "Discontinued": "2024-08-22 13:02:10"
+    },
+    {
+        "Product Code": "P0015",
+        "Product Name": "Bluray Player",
+        "Product Description": "Excellent picture",
+        "Stock": "32",
+        "Cost in GBP": "$4.33",
+        "Discontinued": null
+    },
+    {
+        "Product Code": "P0015",
+        "Product Name": "Bluray Player",
+        "Product Description": "Excellent picture",
+        "Stock": "32",
+        "Cost in GBP": "4.33",
+        "Discontinued": null
+    },
+    {
+        "Product Code": "P0016",
+        "Product Name": "24” Monitor",
+        "Product Description": "Visual candy",
+        "Stock": "3",
+        "Cost in GBP": "45",
+        "Discontinued": null
+    },
+    {
+        "Product Code": "P0017",
+        "Product Name": "CPU",
+        "Product Description": "Processing power",
+        "Stock": " ideal for multimedia",
+        "Cost in GBP": "4",
+        "Discontinued": null
+    },
+    {
+        "Product Code": "P0019",
+        "Product Name": "CD Bundle",
+        "Product Description": "Store all your data. Very convenient",
+        "Stock": "23",
+        "Cost in GBP": "3.44",
+        "Discontinued": null
+    },
+    {
+        "Product Code": "P0021",
+        "Product Name": "VCR",
+        "Product Description": "Watch all those retro videos",
+        "Stock": "12",
+        "Cost in GBP": "3.55",
+        "Discontinued": "2024-08-22 13:02:10"
+    },
+    {
+        "Product Code": "P0022",
+        "Product Name": "Bluray Player",
+        "Product Description": "The future of home entertainment!",
+        "Stock": "45",
+        "Cost in GBP": "3",
+        "Discontinued": null
+    },
+    {
+        "Product Code": "P0026",
+        "Product Name": "Cd Player",
+        "Product Description": "A personal favourite",
+        "Stock": "0",
+        "Cost in GBP": "34.55",
+        "Discontinued": null
+    },
+    {
+        "Product Code": "P0027",
+        "Product Name": "VCR",
+        "Product Description": "Plays videos",
+        "Stock": "34",
+        "Cost in GBP": "1200.03",
+        "Discontinued": "2024-08-22 13:02:10"
+    },
+    {
+        "Product Code": "P0028",
+        "Product Name": "Bluray Player",
+        "Product Description": "Plays bluray's",
+        "Stock": "32",
+        "Cost in GBP": "1100.04",
+        "Discontinued": "2024-08-22 13:02:10"
+    }
+]  
+[2024-08-22 13:22:01] testing.ERROR: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'importtest_test.tblproductdata' doesn't exist (Connection: mysql, SQL: alter table `tblproductdata` add `price` double(8, 2) not null) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 42S02): SQLSTATE[42S02]: Base table or view not found: 1146 Table 'importtest_test.tblproductdata' doesn't exist (Connection: mysql, SQL: alter table `tblproductdata` add `price` double(8, 2) not null) at C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\database\\Connection.php:822)
+[stacktrace]
+#0 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\database\\Connection.php(776): Illuminate\\Database\\Connection->runQueryCallback()
+#1 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\database\\Connection.php(581): Illuminate\\Database\\Connection->run()
+#2 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\database\\Schema\\Blueprint.php(110): Illuminate\\Database\\Connection->statement()
+#3 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\database\\Schema\\Builder.php(552): Illuminate\\Database\\Schema\\Blueprint->build()
+#4 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\database\\Schema\\Builder.php(394): Illuminate\\Database\\Schema\\Builder->build()
+#5 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\support\\Facades\\Facade.php(355): Illuminate\\Database\\Schema\\Builder->table()
+#6 C:\\Laragon\\www\\itransition.test\\database\\migrations\\2024_03_19_100430_add_price_field.php(16): Illuminate\\Support\\Facades\\Facade::__callStatic()
+#7 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\database\\Migrations\\Migrator.php(493): Illuminate\\Database\\Migrations\\Migration@anonymous->up()
+#8 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\database\\Migrations\\Migrator.php(410): Illuminate\\Database\\Migrations\\Migrator->runMethod()
+#9 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\database\\Migrations\\Migrator.php(419): Illuminate\\Database\\Migrations\\Migrator->Illuminate\\Database\\Migrations\\{closure}()
+#10 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\database\\Migrations\\Migrator.php(216): Illuminate\\Database\\Migrations\\Migrator->runMigration()
+#11 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\console\\View\\Components\\Task.php(37): Illuminate\\Database\\Migrations\\Migrator->Illuminate\\Database\\Migrations\\{closure}()
+#12 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\database\\Migrations\\Migrator.php(756): Illuminate\\Console\\View\\Components\\Task->render()
+#13 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\database\\Migrations\\Migrator.php(216): Illuminate\\Database\\Migrations\\Migrator->write()
+#14 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\database\\Migrations\\Migrator.php(181): Illuminate\\Database\\Migrations\\Migrator->runUp()
+#15 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\database\\Migrations\\Migrator.php(124): Illuminate\\Database\\Migrations\\Migrator->runPending()
+#16 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\database\\Console\\Migrations\\MigrateCommand.php(92): Illuminate\\Database\\Migrations\\Migrator->run()
+#17 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\database\\Migrations\\Migrator.php(633): Illuminate\\Database\\Console\\Migrations\\MigrateCommand->Illuminate\\Database\\Console\\Migrations\\{closure}()
+#18 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\database\\Console\\Migrations\\MigrateCommand.php(104): Illuminate\\Database\\Migrations\\Migrator->usingConnection()
+#19 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\container\\BoundMethod.php(36): Illuminate\\Database\\Console\\Migrations\\MigrateCommand->handle()
+#20 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\container\\Util.php(41): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#21 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\container\\BoundMethod.php(93): Illuminate\\Container\\Util::unwrapIfClosure()
+#22 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\container\\BoundMethod.php(37): Illuminate\\Container\\BoundMethod::callBoundMethod()
+#23 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\container\\Container.php(662): Illuminate\\Container\\BoundMethod::call()
+#24 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\console\\Command.php(211): Illuminate\\Container\\Container->call()
+#25 C:\\Laragon\\www\\itransition.test\\vendor\\symfony\\console\\Command\\Command.php(326): Illuminate\\Console\\Command->execute()
+#26 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\console\\Command.php(181): Symfony\\Component\\Console\\Command\\Command->run()
+#27 C:\\Laragon\\www\\itransition.test\\vendor\\symfony\\console\\Application.php(1078): Illuminate\\Console\\Command->run()
+#28 C:\\Laragon\\www\\itransition.test\\vendor\\symfony\\console\\Application.php(324): Symfony\\Component\\Console\\Application->doRunCommand()
+#29 C:\\Laragon\\www\\itransition.test\\vendor\\symfony\\console\\Application.php(175): Symfony\\Component\\Console\\Application->doRun()
+#30 C:\\Laragon\\www\\itransition.test\\vendor\\laravel-zero\\foundation\\src\\Illuminate\\Foundation\\Console\\Kernel.php(201): Symfony\\Component\\Console\\Application->run()
+#31 C:\\Laragon\\www\\itransition.test\\vendor\\laravel-zero\\framework\\src\\Kernel.php(97): Illuminate\\Foundation\\Console\\Kernel->handle()
+#32 C:\\Laragon\\www\\itransition.test\\[parser.itr](37): LaravelZero\\Framework\\Kernel->handle()
+#33 {main}
+
+[previous exception] [object] (PDOException(code: 42S02): SQLSTATE[42S02]: Base table or view not found: 1146 Table 'importtest_test.tblproductdata' doesn't exist at C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\database\\Connection.php:580)
+[stacktrace]
+#0 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\database\\Connection.php(580): PDOStatement->execute()
+#1 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\database\\Connection.php(809): Illuminate\\Database\\Connection->Illuminate\\Database\\{closure}()
+#2 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\database\\Connection.php(776): Illuminate\\Database\\Connection->runQueryCallback()
+#3 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\database\\Connection.php(581): Illuminate\\Database\\Connection->run()
+#4 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\database\\Schema\\Blueprint.php(110): Illuminate\\Database\\Connection->statement()
+#5 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\database\\Schema\\Builder.php(552): Illuminate\\Database\\Schema\\Blueprint->build()
+#6 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\database\\Schema\\Builder.php(394): Illuminate\\Database\\Schema\\Builder->build()
+#7 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\support\\Facades\\Facade.php(355): Illuminate\\Database\\Schema\\Builder->table()
+#8 C:\\Laragon\\www\\itransition.test\\database\\migrations\\2024_03_19_100430_add_price_field.php(16): Illuminate\\Support\\Facades\\Facade::__callStatic()
+#9 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\database\\Migrations\\Migrator.php(493): Illuminate\\Database\\Migrations\\Migration@anonymous->up()
+#10 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\database\\Migrations\\Migrator.php(410): Illuminate\\Database\\Migrations\\Migrator->runMethod()
+#11 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\database\\Migrations\\Migrator.php(419): Illuminate\\Database\\Migrations\\Migrator->Illuminate\\Database\\Migrations\\{closure}()
+#12 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\database\\Migrations\\Migrator.php(216): Illuminate\\Database\\Migrations\\Migrator->runMigration()
+#13 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\console\\View\\Components\\Task.php(37): Illuminate\\Database\\Migrations\\Migrator->Illuminate\\Database\\Migrations\\{closure}()
+#14 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\database\\Migrations\\Migrator.php(756): Illuminate\\Console\\View\\Components\\Task->render()
+#15 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\database\\Migrations\\Migrator.php(216): Illuminate\\Database\\Migrations\\Migrator->write()
+#16 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\database\\Migrations\\Migrator.php(181): Illuminate\\Database\\Migrations\\Migrator->runUp()
+#17 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\database\\Migrations\\Migrator.php(124): Illuminate\\Database\\Migrations\\Migrator->runPending()
+#18 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\database\\Console\\Migrations\\MigrateCommand.php(92): Illuminate\\Database\\Migrations\\Migrator->run()
+#19 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\database\\Migrations\\Migrator.php(633): Illuminate\\Database\\Console\\Migrations\\MigrateCommand->Illuminate\\Database\\Console\\Migrations\\{closure}()
+#20 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\database\\Console\\Migrations\\MigrateCommand.php(104): Illuminate\\Database\\Migrations\\Migrator->usingConnection()
+#21 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\container\\BoundMethod.php(36): Illuminate\\Database\\Console\\Migrations\\MigrateCommand->handle()
+#22 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\container\\Util.php(41): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#23 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\container\\BoundMethod.php(93): Illuminate\\Container\\Util::unwrapIfClosure()
+#24 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\container\\BoundMethod.php(37): Illuminate\\Container\\BoundMethod::callBoundMethod()
+#25 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\container\\Container.php(662): Illuminate\\Container\\BoundMethod::call()
+#26 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\console\\Command.php(211): Illuminate\\Container\\Container->call()
+#27 C:\\Laragon\\www\\itransition.test\\vendor\\symfony\\console\\Command\\Command.php(326): Illuminate\\Console\\Command->execute()
+#28 C:\\Laragon\\www\\itransition.test\\vendor\\illuminate\\console\\Command.php(181): Symfony\\Component\\Console\\Command\\Command->run()
+#29 C:\\Laragon\\www\\itransition.test\\vendor\\symfony\\console\\Application.php(1078): Illuminate\\Console\\Command->run()
+#30 C:\\Laragon\\www\\itransition.test\\vendor\\symfony\\console\\Application.php(324): Symfony\\Component\\Console\\Application->doRunCommand()
+#31 C:\\Laragon\\www\\itransition.test\\vendor\\symfony\\console\\Application.php(175): Symfony\\Component\\Console\\Application->doRun()
+#32 C:\\Laragon\\www\\itransition.test\\vendor\\laravel-zero\\foundation\\src\\Illuminate\\Foundation\\Console\\Kernel.php(201): Symfony\\Component\\Console\\Application->run()
+#33 C:\\Laragon\\www\\itransition.test\\vendor\\laravel-zero\\framework\\src\\Kernel.php(97): Illuminate\\Foundation\\Console\\Kernel->handle()
+#34 C:\\Laragon\\www\\itransition.test\\[parser.itr](37): LaravelZero\\Framework\\Kernel->handle()
+#35 {main}
+"} 
